@@ -1,0 +1,15 @@
+classes:
+  - name: "stain"   # mancha azul, aff, af
+    critical: true
+  - name: "hole"    # hueco de polilla, honeycomb, haz de honeycomb, nudo hueco, corcho granulado (fracturado/no fracturado)
+    critical: true
+  - name: "crack"   # rajaduras
+    critical: true
+  - name: "knot"    # sombra de nudo, nudo sano, nudillos, ojo de pajaro
+    critical: true
+  - name: "rot"     # podredumbre
+    critical: true
+  - name: "decay"   # corazon
+    critical: true
+  - name: "others"  # otros defectos
+    critical: false

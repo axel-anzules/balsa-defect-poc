@@ -1,0 +1,4 @@
+model_path: "models/yolov8n.onnx"
+input_size: 640
+providers:
+  - "CPUExecutionProvider"

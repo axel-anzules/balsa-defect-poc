@@ -1,0 +1,10 @@
+numpy
+opencv-python
+onnxruntime
+PyYAML
+python-dotenv
+
+# quality (PC)
+ruff
+mypy
+pytest

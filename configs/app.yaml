@@ -1,0 +1,5 @@
+project_name: "balsa-defect-poc"
+results_dir: "results"
+save_raw: true
+save_annotated: true
+log_format: "jsonl"  # csv|jsonl|both
