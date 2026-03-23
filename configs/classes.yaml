@@ -1,15 +1,37 @@
 classes:
-  - name: "stain"   # mancha azul, aff, af
+  - name: "rajadura"
     critical: true
-  - name: "hole"    # hueco de polilla, honeycomb, haz de honeycomb, nudo hueco, corcho granulado (fracturado/no fracturado)
+  - name: "mancha_azul"
     critical: true
-  - name: "crack"   # rajaduras
+  - name: "haz_honeycomb"
     critical: true
-  - name: "knot"    # sombra de nudo, nudo sano, nudillos, ojo de pajaro
+  - name: "nudo_hueco"
     critical: true
-  - name: "rot"     # podredumbre
+  - name: "honeycomb"
     critical: true
-  - name: "decay"   # corazon
-    critical: true
-  - name: "others"  # otros defectos
-    critical: false
+#  - name: "mancha_aff"
+#    critical: true
+#  - name: "mancha_af"
+#    critical: true
+#  - name: "hueco_polilla"
+#    critical: true
+#  - name: "corcho_gran_frac"
+#    critical: true
+#  - name: "corcho_gran_nofrac"
+#    critical: true
+#  - name: "sheck_ecu"
+#    critical: true
+#  - name: "sombra_nudo"
+#    critical: true
+#  - name: "nudo_sano"
+#    critical: true
+#  - name: "nudillo"
+#    critical: true
+#  - name: "ojo_pajaro"
+#    critical: true
+#  - name: "podredumbre"
+#    critical: true
+#  - name: "corazon"
+#    critical: true
+#  - name: "others"
+#    critical: false
