@@ -4,23 +4,28 @@ __pycache__/
 *.pyd
 *.so
 *.egg-info/
-dist/
-build/
+dist/*
+build/*
 
 # venv
-.venv/
+.venv/*
 
 # VS Code
-.vscode/
+.vscode/*
 
 # OS
 .DS_Store
 Thumbs.db
 
 # Results/artifacts
-results/
+results/*
 models/*.engine
 models/*.plan
 
 # Env
 .env
+
+# assets
+assets/*
+dataset_kaggle_test/*
+external_data/*

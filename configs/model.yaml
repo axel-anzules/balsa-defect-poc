@@ -1,4 +1,4 @@
-model_path: "models/yolov8n.onnx"
-input_size: 640
+model_path: "models/kaggle_test.onnx"
+input_size: 416
 providers:
   - "CPUExecutionProvider"
