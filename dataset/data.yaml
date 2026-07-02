@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 2
+names: ['nudillo', 'sheck_ecuatoriano']
+
+roboflow:
+  workspace: axel-anzules-3acomposites-com
+  project: poc-defects-on-wood-balsa-panels
+  version: 7
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/axel-anzules-3acomposites-com/poc-defects-on-wood-balsa-panels/dataset/7

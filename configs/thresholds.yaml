@@ -1,2 +1,2 @@
-conf_thres: 0.25
-iou_thres: 0.45
+conf_thres: 0.10
+iou_thres: 0.50

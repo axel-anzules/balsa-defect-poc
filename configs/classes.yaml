@@ -1,14 +1,14 @@
 classes:
-  - name: "rajadura"
+  - name: "nudillo"
     critical: true
-  - name: "mancha_azul"
+  - name: "sheck_ecuatoriano"
     critical: true
-  - name: "haz_honeycomb"
-    critical: true
-  - name: "nudo_hueco"
-    critical: true
-  - name: "honeycomb"
-    critical: true
+#  - name: "haz_honeycomb"
+#    critical: true
+#  - name: "nudo_hueco"
+#    critical: true
+#  - name: "honeycomb"
+#    critical: true
 #  - name: "mancha_aff"
 #    critical: true
 #  - name: "mancha_af"
