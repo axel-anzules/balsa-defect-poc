@@ -1,0 +1,90 @@
+# YOLOv11 Training Configuration - Experiment 5 (Wood Balsa Panels Defect Detection)
+# Task setup
+task: "detect"
+mode: "train"
+model: "ul://ultralytics/yolo11/yolo11s"
+data: "ul://axel-anzules/datasets/poc-defects-on-wood-balsa-panels"
+project: "axel-anzules/poc-defects-on-wood-balsa-panels"
+name: "exp-5"
+
+# Hyperparameters & Epochs
+epochs: 300
+patience: 100
+batch: -1
+imgsz: 640
+device: 0
+workers: 8
+pretrained: true
+optimizer: "auto"
+seed: 0
+deterministic: true
+
+# Learning Rate & Optimization
+lr0: 0.01
+lrf: 0.01
+momentum: 0.937
+weight_decay: 0.001       # Mantiene penalización a pesos complejos
+warmup_epochs: 5.0        # Aumentado para estabilizar el inicio con dropout
+warmup_momentum: 0.8
+warmup_bias_lr: 0.1
+
+# Anti-Overfitting (Regularization)
+dropout: 0.15             # CRUCIAL: Apaga neuronas aleatorias para evitar que memorice el set de entrenamiento
+
+# Loss Weights (Geometric & Class balance)
+box: 12.5                 # Incrementado para forzar un mejor ajuste milimétrico del mAP50-95
+cls: 0.5
+cls_pw: 1.2               # Ayuda a rescatar el porcentaje de Sheck que aún se pierde hacia el fondo
+dfl: 1.5
+
+# Advanced Augmentations (Optimized for Balsa Wood Textures)
+hsv_h: 0.015
+hsv_s: 0.9                # Mantiene alta sensibilidad al contraste del Sheck
+hsv_v: 0.6                # Mantiene simulación de cambios de iluminación
+degrees: 15.0             # Reintroducido: crucial para simular imperfecciones de ángulo en la banda
+translate: 0.1
+scale: 0.3                # Reducido de 0.5 a 0.3 para evitar zooms exagerados que rompen la forma del Sheck
+shear: 0.0
+perspective: 0.0
+flipud: 0.0
+fliplr: 0.5
+
+# Mosaic and Composition Settings
+mosaic: 1.0
+mixup: 0.0                # Desactivado de forma definitiva (evita la transparencia que camuflaba el Sheck)
+cutmix: 0.0
+close_mosaic: 20          # Mantiene las últimas 20 épocas entrenando sin mosaicos para máxima precisión de cajas
+
+# Operational Settings
+save: true
+save_period: -1
+cache: false
+exist_ok: false
+cls_remap: true
+verbose: true
+single_cls: false
+rect: false
+cos_lr: false
+resume: false
+amp: true
+fraction: 1.0
+profile: false
+freeze: null
+multi_scale: 0.0
+compile: false
+overlap_mask: true
+mask_ratio: 4
+val: true
+split: "val"
+save_json: false
+conf: null
+iou: 0.7
+max_det: 300
+
+# Visualization & Logging
+plots: true
+show_labels: true
+show_conf: true
+show_boxes: true
+format: "torchscript"
+simplify: true
