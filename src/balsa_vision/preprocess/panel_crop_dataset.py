@@ -33,9 +33,7 @@ import cv2
 import numpy as np
 import yaml
 
-import sys
-sys.path.append(".../")
-from scripts.dataset_analysis.common import DatasetInfo, load_dataset
+from balsa_vision.dataset_analysis.common import DatasetInfo, load_dataset
 from balsa_vision.preprocess.panel_cropper import (
     crop_panel,
     detect_panel,

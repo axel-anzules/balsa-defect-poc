@@ -29,22 +29,34 @@ from dataclasses import dataclass, field
 import cv2
 import numpy as np
 
-import sys
-sys.path.append(".../")
-from scripts.dataset_analysis.common import BoundingBox
+from balsa_vision.dataset_analysis.common import BoundingBox
 
 logger = logging.getLogger(__name__)
 
-# Umbral de saturación (canal S de HSV, rango 0-255) para separar panel
-# (cálido/saturado) de marco+fondo (desaturado). Calibrado visualmente
-# sobre las muestras de Fase 1; se mantiene como parámetro ajustable.
-DEFAULT_SATURATION_THRESHOLD = 40
+# Rango de Hue (OpenCV, 0-179) que identifica el panel de balsa (tono
+# cálido amarillo-anaranjado), calibrado empíricamente contra la
+# distribución real del dataset (ver hue_calibration.py). Descarta el
+# criterio de saturación como discriminante principal (ver ADR-015):
+# tras el contrast stretching de Roboflow, panel y marco pueden tener
+# saturación similar, pero su matiz (identidad de color) permanece
+# claramente separado.
+DEFAULT_HUE_RANGE: tuple[int, int] = (10, 45)
+
+# Saturación mínima solo para excluir píxeles sin color definible
+# (negro puro del vignette del lente), no para discriminar panel/marco.
+DEFAULT_MIN_SATURATION = 20
+
+# Chequeos de sanidad física (ADR-016): independientes de la
+# calibración estadística por percentiles, para blindar contra
+# detecciones geométricamente imposibles (ej. rectángulos que exceden
+# el frame o ángulos de rotación no plausibles para una cámara fija).
+MAX_PLAUSIBLE_ROTATION_DEGREES = 15.0
+MAX_FRAME_EXCESS_RATIO = 1.05  # el rect detectado no puede exceder el frame en más de 5%
 
 # Fracción mínima de intersección entre una bbox original y el área de
 # recorte para conservarla (clippeada). Por debajo de este umbral, la
 # caja se descarta en vez de conservarse truncada casi en su totalidad.
 MIN_BOX_INTERSECTION_RATIO = 0.5
-
 
 @dataclass
 class PanelRect:
@@ -95,24 +107,34 @@ def _normalize_rect_angle(rect: tuple) -> PanelRect:
     return PanelRect(center=(cx, cy), size=(w, h), angle=angle)
 
 
-def detect_panel(image: np.ndarray, saturation_threshold: int = DEFAULT_SATURATION_THRESHOLD) -> PanelDetectionResult:
+def detect_panel(
+    image: np.ndarray,
+    hue_range: tuple[int, int] = DEFAULT_HUE_RANGE,
+    min_saturation: int = DEFAULT_MIN_SATURATION,
+) -> PanelDetectionResult:
     """
-    Detecta el panel dentro del frame usando el canal de saturación HSV.
+    Detecta el panel dentro del frame usando el canal de Hue (matiz) en
+    espacio HSV, explotando que el panel de balsa (cálido, Hue~20-31)
+    es cromáticamente distinto del marco de espuma (frío, Hue~124-147),
+    señal robusta frente a variaciones de brillo/exposición entre
+    sesiones (ver ADR-015).
 
-    No aplica ninguna validación de rango aquí (eso se hace externamente
-    con umbrales calibrados estadísticamente) — esta función solo
-    reporta lo que encontró geométricamente, junto con su área relativa.
+    Incluye validación de sanidad física (ADR-016): rechaza detecciones
+    cuyo rectángulo exceda el frame o cuyo ángulo de rotación no sea
+    plausible para una cámara montada en soporte fijo, antes de que
+    lleguen a la calibración estadística por percentiles (que por sí
+    sola no protege contra sesgos sistemáticos).
     """
     h, w = image.shape[:2]
     frame_area = float(h * w)
 
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    saturation = hsv[:, :, 1]
+    hue, saturation = hsv[:, :, 0], hsv[:, :, 1]
 
-    _, mask = cv2.threshold(saturation, saturation_threshold, 255, cv2.THRESH_BINARY)
+    hue_mask = cv2.inRange(hue, hue_range[0], hue_range[1])
+    sat_mask = cv2.inRange(saturation, min_saturation, 255)
+    mask = cv2.bitwise_and(hue_mask, sat_mask)
 
-    # Limpieza morfológica: cierra pequeños huecos (vetas oscuras del
-    # panel que puedan caer bajo el umbral) y elimina ruido puntual.
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))
     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
@@ -128,6 +150,27 @@ def detect_panel(image: np.ndarray, saturation_threshold: int = DEFAULT_SATURATI
     rect = cv2.minAreaRect(largest_contour)
     panel_rect = _normalize_rect_angle(rect)
     area_ratio = panel_rect.area / frame_area
+
+    # --- Validación de sanidad física (ADR-016) ---
+    if area_ratio > MAX_FRAME_EXCESS_RATIO:
+        return PanelDetectionResult(
+            success=False,
+            failure_reason=f"detected_rect_exceeds_frame (area_ratio={area_ratio:.3f})",
+        )
+
+    # El ángulo normalizado puede caer en cualquier múltiplo de 90°;
+    # se evalúa la distancia angular al múltiplo de 90 más cercano,
+    # que representa la inclinación real respecto a "derecho".
+    angle_mod = panel_rect.angle % 90.0
+    deviation_from_axis = min(angle_mod, 90.0 - angle_mod)
+    if deviation_from_axis > MAX_PLAUSIBLE_ROTATION_DEGREES:
+        return PanelDetectionResult(
+            success=False,
+            failure_reason=(
+                f"implausible_rotation_angle (deviation={deviation_from_axis:.1f}°, "
+                f"max_allowed={MAX_PLAUSIBLE_ROTATION_DEGREES}°)"
+            ),
+        )
 
     return PanelDetectionResult(success=True, panel_rect=panel_rect, area_ratio=area_ratio)
 
