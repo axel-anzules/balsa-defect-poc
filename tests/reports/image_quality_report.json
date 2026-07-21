@@ -1,0 +1,144 @@
+{
+  "total_analyzed": 1903,
+  "unreadable_files": [],
+  "unique_resolutions": [
+    {
+      "width": 1384,
+      "height": 1038
+    },
+    {
+      "width": 1394,
+      "height": 1046
+    },
+    {
+      "width": 1402,
+      "height": 1052
+    },
+    {
+      "width": 1412,
+      "height": 1058
+    },
+    {
+      "width": 1422,
+      "height": 1066
+    },
+    {
+      "width": 1430,
+      "height": 1072
+    },
+    {
+      "width": 1440,
+      "height": 1080
+    },
+    {
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "width": 1456,
+      "height": 1092
+    },
+    {
+      "width": 1466,
+      "height": 1098
+    },
+    {
+      "width": 1474,
+      "height": 1106
+    },
+    {
+      "width": 1482,
+      "height": 1112
+    },
+    {
+      "width": 1492,
+      "height": 1118
+    },
+    {
+      "width": 1500,
+      "height": 1124
+    },
+    {
+      "width": 1508,
+      "height": 1132
+    },
+    {
+      "width": 1516,
+      "height": 1138
+    },
+    {
+      "width": 1600,
+      "height": 1200
+    }
+  ],
+  "resolution_is_consistent": false,
+  "sharpness_mean": 91.00518538562018,
+  "sharpness_std": 32.2984726427873,
+  "brightness_mean": 94.73448630338675,
+  "brightness_std": 16.292204558685007,
+  "problematic_blurry_count": 1375,
+  "problematic_blurry_sample": [
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\val\\Image__2024-06-17__16-01-46_png.rf.e933ff8686c638fc3a854e3e3d614415.jpg",
+      "sharpness": 34.78843680576593
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\val\\Image__2024-06-17__15-33-01_png.rf.e314bf3472ea6f15e6064deffa7bc577.jpg",
+      "sharpness": 37.38635692321372
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\val\\Image__2024-06-17__18-06-49_png.rf.85fcd09f9f8aeb28e86bd44ee43c32f6.jpg",
+      "sharpness": 39.043397725409086
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\train\\Image__2024-06-17__16-54-11_png.rf.638ae2a979bb25d7720e2587ee94c24f.jpg",
+      "sharpness": 39.278302384758575
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\val\\Image__2026-07-01__10-46-43_png.rf.124024979c674fdbaf0f1e3e0fffdeed.jpg",
+      "sharpness": 42.49412279424147
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\train\\Image__2026-07-01__10-53-21_png.rf.50d055f17d2666e0685b9b0813cfb95f.jpg",
+      "sharpness": 42.58341017448536
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\train\\Image__2024-06-17__18-26-16_png.rf.d041a74a16431a5ddf7318a8d99dacf7.jpg",
+      "sharpness": 42.702400920987124
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\train\\Image__2024-06-17__15-35-22_png.rf.60f901c24aaa6b03c550411d00e2f805.jpg",
+      "sharpness": 42.98981328439313
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\train\\Image__2024-06-17__16-21-45_png.rf.f1baa0f3b428882363a7a0e42bd2facd.jpg",
+      "sharpness": 45.0151209946176
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\train\\Image__2026-07-01__10-57-16_png.rf.4efd9d3ea7e5fc03239c089c046bdfe8.jpg",
+      "sharpness": 45.051284879287365
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\val\\Image__2026-07-01__10-52-39_png.rf.da7f782683fc3dd1f8b86486bfb6828a.jpg",
+      "sharpness": 45.141594304517426
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\val\\Image__2024-06-17__15-55-01_png.rf.595147ac74678d890fa684513b8f6b8d.jpg",
+      "sharpness": 45.42308770294875
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\train\\Image__2024-06-17__15-37-36_png.rf.41602dcf689e73d7147d1b07af291f41.jpg",
+      "sharpness": 45.43164484526407
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\train\\Image__2024-06-17__16-22-34_png.rf.4e2b466eda3684a6b30a87f18183912a.jpg",
+      "sharpness": 45.62493462250207
+    },
+    {
+      "file": "C:\\Users\\ASUS_TUF_I7\\OneDrive\\Documentos\\Docs CV Balsas Defects Project\\balsa-defect-poc\\dataset\\dataset-new-split\\images\\train\\Image__2024-06-17__15-56-07_png.rf.b4268d1abb789f306ccd222af1049dad.jpg",
+      "sharpness": 46.61245314349982
+    }
+  ],
+  "problematic_exposure_count": 0,
+  "problematic_exposure_sample": []
+}

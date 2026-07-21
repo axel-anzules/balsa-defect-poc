@@ -1,0 +1,20 @@
+{
+  "val_ratio_requested": 0.2,
+  "val_ratio_actual": 0.2002101944298476,
+  "seed": 42,
+  "leaking_groups_after_resplit": 0,
+  "class_balance": {
+    "train": {
+      "nudillo_nudohueco": 603,
+      "sheck_ecuatoriano": 484,
+      "negative": 541
+    },
+    "val": {
+      "negative": 136,
+      "nudillo_nudohueco": 151,
+      "sheck_ecuatoriano": 120
+    }
+  },
+  "n_train_images": 1522,
+  "n_val_images": 381
+}
