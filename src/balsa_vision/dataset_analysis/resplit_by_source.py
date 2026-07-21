@@ -47,7 +47,7 @@ import numpy as np
 import yaml
 from sklearn.model_selection import StratifiedGroupKFold
 
-from scripts.dataset_analysis.common import DatasetImage, DatasetInfo, load_dataset
+from balsa_vision.dataset_analysis.common import DatasetImage, DatasetInfo, load_dataset
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)-8s | %(message)s")
 logger = logging.getLogger(__name__)

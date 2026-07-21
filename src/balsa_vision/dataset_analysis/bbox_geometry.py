@@ -25,7 +25,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts.dataset_analysis.common import DatasetInfo, load_dataset
+from balsa_vision.dataset_analysis.common import DatasetInfo, load_dataset
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)-8s | %(message)s")
 logger = logging.getLogger(__name__)
