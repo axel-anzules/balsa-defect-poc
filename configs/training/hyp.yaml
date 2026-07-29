@@ -1,0 +1,69 @@
+# configs/augmentation/hyp_balsa_defects.yaml
+#
+# Configuración de augmentation para detección de defectos en paneles
+# de balsa (nudillo_nudohueco, sheck_ecuatoriano).
+#
+# Fundamentada en ADR-019: cada parámetro está justificado por evidencia
+# de Fase 1/2 (tamaño crítico de defecto post-crop, distribución espacial,
+# geometría de captura) o por el hallazgo de brecha de dominio
+# estación-estática vs. banda-transportadora documentado arriba.
+#
+# NO son valores por defecto de Ultralytics sin revisar — cada uno fue
+# evaluado y justificado individualmente.
+
+# --- Fotométricas (HSV) ---
+hsv_h: 0.012      # Hue: conservador. El panel tiene Hue característico
+                  # 20-45 (ADR-015); un jitter grande generaría tonos de
+                  # madera irreales.
+hsv_s: 0.6        # Saturación: moderado-alto. Coherente con la variabilidad
+                  # de saturación intencional ya documentada en el proceso
+                  # de captura original (ADR-009).
+hsv_v: 0.35       # Value/brillo: moderado. Coherente con exposición variable
+                  # documentada.
+
+# --- Geométricas ---
+degrees: 12.0     # Rotación leve. Justificada por: (a) variación de montaje
+                  # de cámara entre sesiones (ADR-016/017), y (b) orientación
+                  # variable del panel al cruzar la banda en producción.
+translate: 0.15   # Traslación. Reforzada por el hallazgo de banda transportadora:
+                  # el encuadre del panel en producción variará más que en la
+                  # mesa estática de captura de entrenamiento.
+scale: 0.3        # Escala. USAR CON CUIDADO: revisar en Fase 5 que el rango
+                  # efectivo no esté reduciendo demasiado el tamaño aparente
+                  # del defecto (riesgo directo con ADR-006). Considerar sesgo
+                  # hacia zoom-in si el mAP de objetos pequeños se degrada.
+shear: 2.0        # Grados. Mínimo — riesgo de distorsionar la forma alargada
+                  # de sheck_ecuatoriano (aspect ratio 0.40).
+perspective: 0.0003  # Mínimo — sin evidencia de perspectiva variable real
+                     # (el crop ya corrige solo rotación en plano, no
+                     # perspectiva 3D).
+flipud: 0.5       # Vertical flip. Sin orientación inherente arriba/abajo
+                  # (cámara perpendicular al panel).
+fliplr: 0.5       # Horizontal flip. Misma justificación.
+
+# --- Composición ---
+mosaic: 1.0       # Activado con probabilidad completa durante la mayor parte
+                  # del entrenamiento (valioso para diversidad con dataset
+                  # pequeño de 764 fuentes reales), PERO debe combinarse con
+                  # close_mosaic (ver nota abajo) para no sacrificar
+                  # resolución fina de defecto en el afinamiento final.
+mixup: 0.0        # Descartado (ADR-019): riesgo de diluir señal de defecto
+                  # sutil mediante alpha-blending.
+copy_paste: 0.0   # No aplicable: requiere máscaras de segmentación, que no
+                  # tenemos (dataset solo tiene bounding boxes).
+
+# --- Oclusión ---
+# Coarse Dropout / CutOut: Ultralytics no expone esto directamente vía
+# hyp.yaml en todas las versiones — si se requiere, se implementará como
+# transform de Albumentations custom en el pipeline de carga (a definir en
+# Fase 4 al construir el training script). Parámetros objetivo: parches
+# pequeños, p≈0.15.
+
+# --- NOTA: Motion Blur no es un parámetro nativo de hyp.yaml de Ultralytics ---
+# Debe implementarse como transform adicional de Albumentations en el
+# pipeline de carga de datos (Fase 4), con las siguientes características:
+#   - Dirección: horizontal (coherente con orientación panel + banda)
+#   - Intensidad: baja-moderada (kernel pequeño)
+#   - Probabilidad: 0.05-0.1
+#   - RECALIBRAR con datos reales de banda en cuanto estén disponibles
+#     (ver acción crítica de Fase 8 en ADR-019)

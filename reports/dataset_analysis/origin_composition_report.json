@@ -1,0 +1,22 @@
+{
+  "total_images": 1604,
+  "total_counts": {
+    "direct_capture": 71,
+    "roboflow": 1533
+  },
+  "total_ratios": {
+    "direct_capture": 0.0442643391521197,
+    "roboflow": 0.9557356608478803
+  },
+  "counts_by_split": {
+    "train": {
+      "direct_capture": 55,
+      "roboflow": 1222
+    },
+    "val": {
+      "direct_capture": 16,
+      "roboflow": 311
+    }
+  },
+  "unknown_samples": []
+}

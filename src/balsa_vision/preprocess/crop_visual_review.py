@@ -50,9 +50,12 @@ logger = logging.getLogger(__name__)
 
 def draw_detected_rect(image: np.ndarray, center: tuple, size: tuple, angle: float) -> np.ndarray:
     """Dibuja el minAreaRect detectado sobre una copia de la imagen original."""
-    annotated = image.copy()
-    box_points = cv2.boxPoints((center, size, angle))
-    box_points = np.intp(box_points)
+    annotated: np.ndarray = image.copy()
+    # Ensure types passed to cv2.boxPoints are primitive floats/ints to avoid
+    # propagation of `Any` types from OpenCV stubs. Explicitly construct the
+    # RotatedRect as ((cx, cy), (w, h), angle).
+    rect = ((float(center[0]), float(center[1])), (float(size[0]), float(size[1])), float(angle))
+    box_points: np.ndarray = np.asarray(cv2.boxPoints(rect), dtype=np.int32)
     cv2.drawContours(annotated, [box_points], 0, (0, 0, 255), 4)  # rojo BGR
     return annotated
 

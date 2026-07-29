@@ -1,0 +1,32 @@
+{
+  "total_images": 1604,
+  "total_negatives": 551,
+  "negative_ratio": 0.34351620947630923,
+  "instance_counts": {
+    "nudillo_nudohueco": 722,
+    "sheck_ecuatoriano": 674
+  },
+  "image_counts": {
+    "nudillo_nudohueco": 654,
+    "sheck_ecuatoriano": 516
+  },
+  "instance_counts_by_split": {
+    "train": {
+      "nudillo_nudohueco": 572,
+      "sheck_ecuatoriano": 536
+    },
+    "val": {
+      "nudillo_nudohueco": 150,
+      "sheck_ecuatoriano": 138
+    }
+  },
+  "negatives_by_split": {
+    "train": 438,
+    "val": 113
+  },
+  "total_by_split": {
+    "train": 1277,
+    "val": 327
+  },
+  "imbalance_ratio_by_images": 1.2674418604651163
+}

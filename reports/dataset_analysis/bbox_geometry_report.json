@@ -1,0 +1,22 @@
+{
+  "per_class_stats": {
+    "nudillo_nudohueco": {
+      "count": 722,
+      "area_ratio_mean_pct": 0.12128421542783932,
+      "area_ratio_median_pct": 0.090592951,
+      "area_ratio_min_pct": 0.0081224,
+      "area_ratio_max_pct": 0.574162752,
+      "area_ratio_std_pct": 0.09879629113952967,
+      "aspect_ratio_mean": 0.7751601654460635
+    },
+    "sheck_ecuatoriano": {
+      "count": 674,
+      "area_ratio_mean_pct": 0.15759818173575665,
+      "area_ratio_median_pct": 0.12480533794999998,
+      "area_ratio_min_pct": 0.0240884367,
+      "area_ratio_max_pct": 0.6975833754999999,
+      "area_ratio_std_pct": 0.10842101712934471,
+      "aspect_ratio_mean": 0.40030422965723944
+    }
+  }
+}
