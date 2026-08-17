@@ -9,6 +9,7 @@ build/*
 
 # venv
 .venv/*
+venv-ai-poc/*
 
 # VS Code
 .vscode/*
@@ -30,4 +31,4 @@ runs/*
 assets/*
 dataset_kaggle_test/*
 external_data/*
-dataset/*
+datasets/*

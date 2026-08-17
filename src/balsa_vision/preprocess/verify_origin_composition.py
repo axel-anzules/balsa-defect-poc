@@ -1,15 +1,15 @@
 # src/balsa_vision/preprocess/verify_origin_composition.py
 """
 Verifica la composición de origen (Roboflow vs. captura directa) del
-dataset tras el crop de Fase 2.1, para informar si el desbalance de
-origen es relevante al diseñar el resto del preprocesamiento (Fase 2.2),
+dataset tras el crop, para informar si el desbalance de
+origen es relevante al diseñar el resto del preprocesamiento,
 dado que las imágenes de origen Roboflow ya tienen aplicado Auto-Adjust
-Contrast (ver ADR-009) y las de captura directa no.
+Contrast y las de captura directa no.
 
 Reutiliza el mismo patrón determinístico de clasificación de
-roboflow_source_leakage.py (ADR-008), aplicado ahora sobre el dataset
+roboflow_source_leakage.py, aplicado ahora sobre el dataset
 post-crop en vez del dataset original, para saber qué sobrevivió a la
-exclusión de Fase 2.1.
+exclusión.
 
 Uso:
     python -m balsa_vision.preprocess.verify_origin_composition \
@@ -81,7 +81,7 @@ def analyze_composition(cropped_root_dir: Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Verifica composición de origen (Roboflow vs. captura directa) "
-        "del dataset tras el crop de Fase 2.1."
+        "del dataset tras el crop"
     )
     parser.add_argument("--cropped-root-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, default=Path("./reports"))

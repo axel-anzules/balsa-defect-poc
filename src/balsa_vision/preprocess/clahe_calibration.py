@@ -2,13 +2,13 @@
 """
 Utilidad de calibración visual: aplica CLAHE con distintas combinaciones
 de clipLimit / tileGridSize sobre una muestra estratificada por brillo
-del dataset recortado (post Fase 2.1), para calibrar empíricamente los
-parámetros antes de fijarlos en el pipeline de producción (ver Fase 2.2).
+del dataset recortado, para calibrar empíricamente los parámetros antes 
+de fijarlos en el pipeline de producción.
 
 CLAHE se aplica sobre el canal L (luminancia) del espacio Lab, no
 directamente sobre BGR, para no distorsionar el balance de color del
 panel — relevante porque el Hue del panel es la señal usada en la
-detección de Fase 2.1 (ADR-015) y no debe alterarse innecesariamente.
+detección y no debe alterarse innecesariamente.
 
 Para cada imagen de muestra se generan dos vistas:
     - Panel completo: original vs. cada combinación de parámetros.

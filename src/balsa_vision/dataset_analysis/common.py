@@ -7,12 +7,6 @@ mapeo de clases) para que los distintos scripts de reporte (distribución
 de clases, geometría de bboxes, calidad de imagen, duplicados) no
 dupliquen lógica de parseo y permanezcan consistentes entre sí.
 
-Fuente de verdad para el mapeo de clases (ver ADR-005):
-    Se prioriza el registro de metadata del .ndjson original sobre
-    cualquier archivo generado por el conversor (data.yaml,
-    class_names.json), ya que este último no está garantizado por la
-    función oficial de Ultralytics y su ausencia no debe romper el
-    análisis.
 """
 
 from __future__ import annotations

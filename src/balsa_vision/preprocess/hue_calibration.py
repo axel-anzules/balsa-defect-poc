@@ -1,10 +1,9 @@
 # src/balsa_vision/preprocess/hue_calibration.py
 """
 Utilidad de calibración: compara la distribución de Hue (matiz) entre la
-región central del frame (donde el panel está casi siempre presente,
-según el prior geométrico observado en Fase 1) y la región periférica
-(donde predomina el marco de espuma), para calibrar empíricamente el
-rango de Hue que discrimina panel de marco (ver ADR-015).
+región central del frame (donde el panel está casi siempre presente) 
+y la región periférica (donde predomina el marco de espuma), 
+para calibrar empíricamente el rango de Hue que discrimina panel de marco.
 
 No decide nada por sí solo: genera el histograma para inspección visual
 humana antes de fijar DEFAULT_HUE_RANGE en panel_cropper.py.

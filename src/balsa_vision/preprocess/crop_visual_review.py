@@ -1,7 +1,7 @@
 # src/balsa_vision/preprocess/crop_visual_review.py
 """
 Genera una muestra visual estratificada del resultado de panel_crop_dataset.py
-para verificación humana antes de aceptar el pipeline de Fase 2.1.
+para verificación humana antes de aceptar el pipeline.
 
 Para cada imagen de muestra, genera un panel comparativo:
     - Izquierda: imagen ORIGINAL con el rectángulo detectado (minAreaRect)
@@ -108,7 +108,7 @@ def main() -> None:
         crop_report = json.load(f)
     excluded_files = {e["file"] for e in crop_report["excluded_detail"]}
 
-    # Re-detectar (barato, solo para esta muestra) sobre las imágenes procesadas
+    # Re-detectar (solo para esta muestra) sobre las imágenes procesadas
     # exitosamente, para poder dibujar el rectángulo original y clasificar por
     # estrato de area_ratio.
     candidates: list[tuple] = []

@@ -1,15 +1,15 @@
 # src/balsa_vision/preprocess/clahe_dataset.py
 """
-Orquestador de Fase 2.2: aplica CLAHE (image_enhancement.apply_clahe)
-sobre todo el dataset ya recortado (Fase 2.1), materializando el
+Orquestador: aplica CLAHE (image_enhancement.apply_clahe)
+sobre todo el dataset ya recortado, materializando el
 resultado final en disco.
 
-A diferencia del crop (Fase 2.1), esta es una transformación puramente
+A diferencia del crop, esta es una transformación puramente
 fotométrica: no afecta la geometría de las bounding boxes, por lo que
 los archivos de label se copian sin modificación.
 
 El dataset resultante (dataset_yolo_preprocessed) es el candidato final
-para pasar a Fase 3 (Data Augmentation) y Fase 4 (Entrenamiento).
+para pasar a Data Augmentation y Entrenamiento.
 
 Uso:
     python -m balsa_vision.preprocess.clahe_dataset \
@@ -98,7 +98,7 @@ def write_data_yaml(output_dir: Path, source_data_yaml: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Aplica CLAHE calibrado (ADR-018) sobre el dataset "
-        "recortado (Fase 2.1), materializando el resultado en disco."
+        "recortado, materializando el resultado en disco."
     )
     parser.add_argument("--input-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)

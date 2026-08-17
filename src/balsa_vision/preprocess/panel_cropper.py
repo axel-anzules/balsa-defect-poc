@@ -1,7 +1,7 @@
 # preprocess/panel_cropper.py
 """
 Detección, enderezado y recorte del panel de balsa dentro del frame
-capturado por la cámara ADLINK (lente ojo de pez + marco de espuma).
+capturado por la cámara ADLINK (lente ojo de pez + marco de negro metalico).
 
 Implementa la estrategia híbrida definida en ADR-010:
     1. Detección del panel por umbral de saturación en espacio HSV
@@ -10,8 +10,8 @@ Implementa la estrategia híbrida definida en ADR-010:
     2. Cálculo del rectángulo mínimo rotado (minAreaRect) que envuelve
        el panel, capturando su inclinación real.
     3. Rotación de la imagen completa para enderezar el panel (solo
-       rotación afín, no homografía — ver justificación en ADR-010).
-    4. Recorte con margen de seguridad configurable (ADR-011).
+       rotación afín, no homografía).
+    4. Recorte con margen de seguridad configurable.
     5. Transformación consistente de las bounding boxes YOLO a través
        de la misma rotación + recorte, con clipping/descarte explícito
        de cajas que queden parcialmente fuera del área recortada.
@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 # Rango de Hue (OpenCV, 0-179) que identifica el panel de balsa (tono
 # cálido amarillo-anaranjado), calibrado empíricamente contra la
 # distribución real del dataset (ver hue_calibration.py). Descarta el
-# criterio de saturación como discriminante principal (ver ADR-015):
+# criterio de saturación como discriminante principal:
 # tras el contrast stretching de Roboflow, panel y marco pueden tener
 # saturación similar, pero su matiz (identidad de color) permanece
 # claramente separado.
@@ -46,7 +46,7 @@ DEFAULT_HUE_RANGE: tuple[int, int] = (10, 45)
 # (negro puro del vignette del lente), no para discriminar panel/marco.
 DEFAULT_MIN_SATURATION = 20
 
-# Chequeos de sanidad física (ADR-016): independientes de la
+# Chequeos de sanidad física: independientes de la
 # calibración estadística por percentiles, para blindar contra
 # detecciones geométricamente imposibles (ej. rectángulos que exceden
 # el frame o ángulos de rotación no plausibles para una cámara fija).
@@ -98,7 +98,7 @@ def _normalize_rect_angle(rect: tuple) -> PanelRect:
     cv2.minAreaRect puede devolver (w, h, angle) en cualquier orientación.
     Se normaliza para que 'width' sea siempre el lado más largo, ajustando
     el ángulo correspondientemente, ya que sabemos que el panel real es
-    más ancho que alto (aspect ratio ~4:3, confirmado en Fase 1).
+    más ancho que alto (aspect ratio ~4:3).
     """
     (cx, cy), (w, h), angle = rect
     if w < h:
@@ -117,9 +117,9 @@ def detect_panel(
     espacio HSV, explotando que el panel de balsa (cálido, Hue~20-31)
     es cromáticamente distinto del marco de espuma (frío, Hue~124-147),
     señal robusta frente a variaciones de brillo/exposición entre
-    sesiones (ver ADR-015).
+    sesiones.
 
-    Incluye validación de sanidad física (ADR-016): rechaza detecciones
+    Incluye validación de sanidad física: rechaza detecciones
     cuyo rectángulo exceda el frame o cuyo ángulo de rotación no sea
     plausible para una cámara montada en soporte fijo, antes de que
     lleguen a la calibración estadística por percentiles (que por sí
@@ -151,7 +151,7 @@ def detect_panel(
     panel_rect = _normalize_rect_angle(rect)
     area_ratio = panel_rect.area / frame_area
 
-    # --- Validación de sanidad física (ADR-016) ---
+    # --- Validación de sanidad física ---
     if area_ratio > MAX_FRAME_EXCESS_RATIO:
         return PanelDetectionResult(
             success=False,

@@ -1,16 +1,15 @@
 # preprocess/panel_crop_dataset.py
 """
-Orquestador de Fase 2.1: aplica la detección + enderezado + recorte del
+Orquestador: aplica la detección + enderezado + recorte del
 panel (preprocessing/panel_cropper.py) a todo el dataset, en dos pasadas:
 
     Pasada 1: detecta el panel en todas las imágenes y recolecta la
               distribución real de área_ratio y aspect_ratio, para
-              derivar los rangos de validación estadísticamente (no
-              asumidos a priori — ver ADR-012).
+              derivar los rangos de validación estadísticamente.
     Pasada 2: aplica la detección + validación + crop + transformación
               de boxes con los rangos calibrados, materializando el
               nuevo dataset. Las imágenes que fallan la validación se
-              EXCLUYEN (ADR-012) y se registran en un reporte aparte
+              EXCLUYEN y se registran en un reporte aparte
               para revisión manual.
 
 Uso:
@@ -200,11 +199,11 @@ def write_data_yaml(output_dir: Path, class_names: dict[int, str]) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Fase 2.1: detección, enderezado y recorte del panel.")
+    parser = argparse.ArgumentParser(description="Fase: detección, enderezado y recorte del panel.")
     parser.add_argument("--root-dir", type=Path, required=True)
     parser.add_argument("--ndjson", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--margin-ratio", type=float, default=0.06, help="Margen de seguridad del crop (ADR-011).")
+    parser.add_argument("--margin-ratio", type=float, default=0.06, help="Margen de seguridad del crop.")
     parser.add_argument(
         "--percentile-margin", type=float, default=5.0,
         help="Percentil usado en cada extremo para calibrar rangos de validación (default: 5 -> P5-P95).",

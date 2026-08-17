@@ -1,0 +1,1 @@
+timestamp,experiment_id,model,rect,clahe,augmentation,precision,recall,map50,map50_95,map50_95_nudillo_nudohueco,map50_95_sheck_ecuatoriano,train_time_minutes,run_dir

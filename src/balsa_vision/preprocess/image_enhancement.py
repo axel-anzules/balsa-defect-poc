@@ -1,19 +1,19 @@
 # src/balsa_vision/preprocess/image_enhancement.py
 """
-Funciones de mejora fotométrica del pipeline de preprocesamiento
-(Fase 2.2). Separado de panel_cropper.py porque atiende una
+Funciones de mejora fotométrica del pipeline de preprocesamiento. 
+Separado de panel_cropper.py porque atiende una
 responsabilidad distinta: ajuste de contraste/iluminación, no
 geometría del panel.
 
 Estas funciones se reutilizan de forma idéntica en:
     - El pipeline de materialización del dataset de entrenamiento
       (clahe_dataset.py, este módulo).
-    - El pipeline de inferencia en tiempo real en Jetson (Fase 8),
+    - El pipeline de inferencia en tiempo real en Jetson,
       para garantizar consistencia entre el dominio de entrenamiento
-      y el dominio de producción (ver ADR-018).
+      y el dominio de producción.
 
 Parámetros calibrados empíricamente sobre el dataset real — ver
-clahe_calibration.py y ADR-018 para la justificación de estos valores.
+clahe_calibration.py para la justificación de estos valores.
 """
 
 from __future__ import annotations
@@ -21,8 +21,8 @@ from __future__ import annotations
 import cv2
 import numpy as np
 
-# Calibrados visualmente sobre 9 muestras estratificadas por brillo
-# (ver ADR-018). No modificar sin repetir el proceso de calibración
+# Calibrados visualmente sobre 9 muestras estratificadas por brillo.
+# No modificar sin repetir el proceso de calibración.
 # visual — valores distintos pueden introducir artefactos de bloque
 # (tile pequeño) o ruido granulado (clipLimit alto).
 CLAHE_CLIP_LIMIT = 2.5
@@ -39,7 +39,7 @@ def apply_clahe(
     reconstruye la imagen en BGR. Operar sobre L en vez de directamente
     sobre los canales BGR evita distorsionar el balance de color de la
     imagen (relevante porque el Hue del panel es la señal usada en la
-    detección geométrica de Fase 2.1 — ver ADR-015).
+    detección geométrica).
     """
     lab = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2LAB)
     l_channel, a_channel, b_channel = cv2.split(lab)
